@@ -53,23 +53,23 @@ function parseJson(
 	}
 }
 
-export class Memgraph implements INodeType {
+export class Cypher implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Memgraph',
-		name: 'memgraph',
-		icon: 'file:memgraph.svg',
+		displayName: 'Cypher',
+		name: 'cypher',
+		icon: 'file:matterandes.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
-		description: 'Interact with Memgraph graph database via the Bolt protocol',
+		description: 'Interact with a graph database via the Bolt protocol using Cypher queries',
 		defaults: {
-			name: 'Memgraph',
+			name: 'Cypher',
 		},
 		inputs: ['main'],
 		outputs: ['main'],
 		credentials: [
 			{
-				name: 'memgraphApi',
+				name: 'cypherApi',
 				required: true,
 			},
 		],
@@ -279,7 +279,7 @@ export class Memgraph implements INodeType {
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-		const credentials = await this.getCredentials('memgraphApi');
+		const credentials = await this.getCredentials('cypherApi');
 
 		const driver = neo4j.driver(
 			credentials.boltUrl as string,
@@ -339,13 +339,14 @@ export class Memgraph implements INodeType {
 						const limit = this.getNodeParameter('limit', i) as number;
 
 						let query: string;
-						const params: Record<string, unknown> = { limit };
+						const params: Record<string, unknown> = {};
+						const limitInt = Math.floor(limit);
 
 						if (filterProperty) {
-							query = `MATCH (n:\`${label}\`) WHERE n.\`${filterProperty}\` = $filterValue RETURN n LIMIT $limit`;
+							query = `MATCH (n:\`${label}\`) WHERE n.\`${filterProperty}\` = $filterValue RETURN n LIMIT ${limitInt}`;
 							params.filterValue = filterValue;
 						} else {
-							query = `MATCH (n:\`${label}\`) RETURN n LIMIT $limit`;
+							query = `MATCH (n:\`${label}\`) RETURN n LIMIT ${limitInt}`;
 						}
 
 						const result = await session.run(query, params);

@@ -1,9 +1,9 @@
 import { ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export class MemgraphApi implements ICredentialType {
-	name = 'memgraphApi';
-	displayName = 'Memgraph API';
-	documentationUrl = 'https://memgraph.com/docs/client-libraries/nodejs';
+export class CypherApi implements ICredentialType {
+	name = 'cypherApi';
+	displayName = 'Cypher API';
+	documentationUrl = 'https://neo4j.com/docs/bolt/current/';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Bolt URL',
@@ -11,7 +11,7 @@ export class MemgraphApi implements ICredentialType {
 			type: 'string',
 			default: 'bolt://localhost:7687',
 			placeholder: 'bolt://localhost:7687',
-			description: 'The Bolt URL of the Memgraph instance',
+			description: 'The Bolt URL of the graph database instance',
 		},
 		{
 			displayName: 'Username',

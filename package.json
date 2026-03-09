@@ -1,18 +1,22 @@
 {
-  "name": "n8n-nodes-memgraph",
-  "version": "1.0.0",
-  "description": "n8n community node to interact with Memgraph graph database via the Neo4j Bolt driver",
+  "name": "@matterandes/n8n-nodes-cypher",
+  "version": "1.0.2",
+  "description": "n8n community node to interact with graph databases via the Bolt protocol using Cypher queries",
   "keywords": [
     "n8n-community-node-package",
     "n8n",
-    "memgraph",
-    "neo4j",
-    "graph",
     "cypher",
+    "neo4j",
+    "memgraph",
+    "graph",
     "bolt"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Matias Berlinger <mberlin@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mberlin/n8n-nodes-cypher"
+  },
   "main": "index.js",
   "scripts": {
     "build": "tsc && gulp build:icons",
@@ -23,10 +27,10 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/MemgraphApi.credentials.js"
+      "dist/credentials/CypherApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Memgraph/Memgraph.node.js"
+      "dist/nodes/Cypher/Cypher.node.js"
     ]
   },
   "files": [
