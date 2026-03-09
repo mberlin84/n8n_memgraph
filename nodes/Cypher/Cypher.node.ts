@@ -1,4 +1,5 @@
-import neo4j, { Node, Relationship } from 'neo4j-driver';
+// vendor neo4j-driver to avoid external dependency
+const neo4j: any = require('./neo4j-driver');
 import {
 	IDataObject,
 	IExecuteFunctions,
@@ -9,20 +10,21 @@ import {
 } from 'n8n-workflow';
 
 function serializeValue(value: unknown): IDataObject | IDataObject[] | string | number | boolean | null {
-	if (value instanceof Node) {
+	// use runtime driver classes for instanceof checks
+	if (neo4j && neo4j.types && value instanceof neo4j.types.Node) {
 		return {
-			_id: value.identity as unknown as number,
-			_labels: value.labels as unknown as string,
-			...(value.properties as IDataObject),
+			_id: (value as any).identity as unknown as number,
+			_labels: (value as any).labels as unknown as string,
+			...((value as any).properties as IDataObject),
 		} as IDataObject;
 	}
-	if (value instanceof Relationship) {
+	if (neo4j && neo4j.types && value instanceof neo4j.types.Relationship) {
 		return {
-			_id: value.identity as unknown as number,
-			_type: value.type,
-			_startNodeId: value.start as unknown as number,
-			_endNodeId: value.end as unknown as number,
-			...(value.properties as IDataObject),
+			_id: (value as any).identity as unknown as number,
+			_type: (value as any).type,
+			_startNodeId: (value as any).start as unknown as number,
+			_endNodeId: (value as any).end as unknown as number,
+			...((value as any).properties as IDataObject),
 		} as IDataObject;
 	}
 	if (Array.isArray(value)) {

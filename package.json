@@ -1,6 +1,6 @@
 {
   "name": "@matterandes/n8n-nodes-cypher",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "n8n community node to interact with graph databases via the Bolt protocol using Cypher queries",
   "keywords": [
     "n8n-community-node-package",
@@ -47,6 +47,5 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "neo4j-driver": "^6.0.1"
   }
 }

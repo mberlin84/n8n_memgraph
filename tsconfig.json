@@ -9,8 +9,9 @@
     "strict": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowJs": true
   },
-  "include": ["credentials/**/*.ts", "nodes/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["credentials/**/*.ts", "nodes/**/*.ts", "nodes/**/*.js"],
+  "exclude": ["node_modules", "dist", "nodes/Cypher/neo4j-driver"]
 }
